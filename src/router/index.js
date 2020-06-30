@@ -1,28 +1,51 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// Vue
+import Router from 'vue-router'
 
-Vue.use(VueRouter)
+// Normal loading
+import Home from '@/pages/Home.vue'
+import NotFound from '@/pages/NotFound.vue'
+import Login from '@/pages/Login.vue'
+import RodalAdd from '@/pages/RodalAdd.vue'
+import RodalSpecies from '@/pages/RodalSpecies.vue'
+import RodalInventory from '@/pages/RodalInventory.vue'
 
-  const routes = [
+const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: '/home',
+    redirect: '/'
+  },
+  {
+    path: '/', name: 'home',
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '*', name: 'not-found',
+    component:  NotFound
+  },
+  {
+    path: '/login', name: 'login',
+    component: Login
+  },
+  {
+    path: '/rodal-ingreso', name: 'rodal-ingreso',
+    component: RodalAdd
+  },
+  {
+    path: '/rodal-especies', name: 'rodal-especies',
+    component: RodalSpecies
+  },
+  {
+    path: '/rodal-inventario', name: 'rodal-inventario',
+    component: RodalInventory
+  },
 ]
 
-const router = new VueRouter({
+// Router instance
+const router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: '/',
+  fallback: false,
+  hash: false,
   routes
 })
 
