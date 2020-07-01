@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="containerr">
     <!-- <div v-if="UI.route === 'inicio'" style="position:fixed;top:0;left:0;width:100%;background:#70A83B;display:flex;align-items:center;justify-content:space-between;padding:10px 15px 10px 15px">
     <v-app-bar-nav-icon @click="openDrawer" style="color:white"></v-app-bar-nav-icon>
     <div style="color:white;font-weight:400;font-size:20px">XStock</div>
@@ -7,7 +7,7 @@
     </div>-->
 
     <div
-      style="z-index:1;background:#70A83B;border-bottom:1px solid #e2e2e2;position:fixed;top:0;left:0;width:100%;display:flex;align-items:center;justify-content:space-between;padding:15px"
+      style="z-index:1;background:#70A83B;border-bottom:1px solid #e2e2e2;position:fixed;top:0;left:0;width:100%;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 15px"
     >
       <div
         v-if="headerUI.back"
@@ -19,25 +19,41 @@
       </div>
       <v-app-bar-nav-icon v-if="!headerUI.back" @click="openDrawer" style="color:white"></v-app-bar-nav-icon>
       <div
-        style="color:white;font-weight::500;font-weight:400;font-size:20px;overflow:hidden;height:30px;text-align:center"
+        style="color:white;font-weight::500;font-weight:400;font-size:18.5px;overflow:hidden;text-align:center"
       >
         <span class="showOnIphone">{{headerUI.title}}</span>
         <!-- <span v-if="!shortTitle" class="showOnIphone">{{headerUI.longTitle}}</span> -->
-        <span class="showOnAndroid">{{headerUI.longTitle}}</span>
+        <span class="showOnAndroid">{{headerUI.title}}</span>
+      </div>
+       <div v-if="headerUI.txtRight" @click="openAlert()" v-ripple style="padding:0 5px;border-radius:3px;color:white;font-weight:400;font-size:17px;">
+      Listo
+    </div>
+     <v-btn v-if="headerUI.btnRight" @click="openPage('rodal-preguntas')" icon>
+      <v-icon style="color:white">mdi-email-send</v-icon>
+      </v-btn>
+      <div v-if="headerUI.filter" style="display:flex;align-items:center">
+       <v-btn @click="openPage('rodal-preguntas')" icon>
+      <v-icon style="color:white">mdi-filter</v-icon>
+      </v-btn>
+      <div style="color:white;margin-left:0px">
+        Filtro
+      </div>
       </div>
       <!-- <div v-if="saveButton" v-ripple style="padding:0 5px;border-radius:3px;color:white;font-weight:400;font-size:17px;">
       Agregar
-    </div>
-    <v-btn v-if="saveIcon" icon>
+    </div> -->
+    <!-- <v-btn v-if="saveIcon" icon>
       <v-icon style="color:white">mdi-check-bold</v-icon>
-      </v-btn>-->
-      <div v-if="blankSpace" style="height:10px;width:50px"></div>
+      </v-btn> -->
+      <div v-if="headerUI.blankSpace" style="height:10px;width:50px"></div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import router from "@/router";
+
 export default {
   data: () => ({
     shortTitle: false,
@@ -46,25 +62,34 @@ export default {
     blankSpace: true
   }),
   computed: {
-    ...mapState(["UI"])
+    ...mapState(["headerUI"])
   },
   methods: {
     openDrawer() {
-      setTimeout(() => {
-        this.updateUI({ drawer: true });
-      }, 100);
+      setTimeout(() => this.updateSharedUI({ drawer: true }), 100);
+    },
+    openAlert() {
+      setTimeout(() => this.updateSharedUI({ alert: true }), 100);
     },
     goBack() {
-      setTimeout(() => {
-        this.updateUI({ route: "inicio" });
-      }, 100);
+      setTimeout(() => router.back(), 100);
     },
-    ...mapActions(["updateUI"])
+    openPage(page) {
+      setTimeout(() => router.push(page), 100)
+    },
+    ...mapActions(["updateSharedUI", "updateHeaderUI"])
   }
 };
 </script>
 
 <style lang="sass" scoped>
+.containerr
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  -o-user-select: none
+  user-select: none
+
 .showOnIphone
   display: none
 

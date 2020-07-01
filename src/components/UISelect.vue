@@ -1,33 +1,12 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="UI.dialog" scrollable max-width="300px">
+    <v-dialog v-model="sharedUI.select" scrollable max-width="300px">
       <v-card>
-        <v-card-title v-if="UI.dialogRodal">Seleccionar rodal</v-card-title>
-        <v-card-title v-if="UI.dialogEspecie">Seleccionar especie</v-card-title>
+        <v-card-title style="text-transform:capitalize"> {{sharedUI.selectTitle}} </v-card-title>
         <v-divider></v-divider>
-        <v-card-text v-if="UI.dialogRodal" style="height: 300px;">
+        <v-card-text style="max-height: 300px;">
           <v-radio-group v-model="dialogm1" column>
-            <v-radio label="Rodal 1" value="bahamas"></v-radio>
-            <v-radio label="Rodal 2" value="bahrain"></v-radio>
-            <v-radio label="Rodal 3" value="bangladesh"></v-radio>
-            <v-radio label="Rodal 4" value="bangladesh"></v-radio>
-            <v-radio label="Rodal 5" value="bangladesh"></v-radio>
-          </v-radio-group>
-        </v-card-text>
-        <v-card-text v-if="UI.dialogEspecie" style="height: 300px;">
-          <v-radio-group v-model="dialogm1" column>
-            <v-radio label="Coihue" value="bahamas"></v-radio>
-            <v-radio label="Manzano" value="bahrain"></v-radio>
-            <v-radio label="Radiata" value="bangladesh"></v-radio>
-            <v-radio label="Eucalipto" value="barbados"></v-radio>
-            <v-radio label="Pino oregon" value="belarus"></v-radio>
-            <v-radio label="Arrayán" value="belgium"></v-radio>
-            <v-radio label="Castaño" value="belize"></v-radio>
-            <v-radio label="Brunei" value="brunei"></v-radio>
-            <v-radio label="Bulgaria" value="bulgaria"></v-radio>
-            <v-radio label="Burkina Faso" value="burkina"></v-radio>
-            <v-radio label="Burma" value="burma"></v-radio>
-            <v-radio label="Burundi" value="burundi"></v-radio>
+            <v-radio v-for="opt in sharedUI.selectData" :key="opt" :label="opt" :value="opt"></v-radio>
           </v-radio-group>
         </v-card-text>
         <v-divider></v-divider>
@@ -51,17 +30,17 @@
     },
     computed: {
       ...mapState([
-        'UI'
+        'sharedUI'
       ])
     },
     methods: {
       closeDialog() {
         setTimeout(() => {
-          this.updateUI({dialog: false})
+          this.updateSharedUI({select: false})
         }, 100);
       },
       ...mapActions([
-        'updateUI'
+        'updateSharedUI'
       ])
     }
   }

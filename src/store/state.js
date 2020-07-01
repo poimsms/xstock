@@ -1,15 +1,22 @@
 export default {
-  headerUI:{
-    title: 'XStock',
+  headerUI: {
+    longTitle: '',
+    shortTitle: '',
     back: false,
-    menu: true
+    btnRight: false,
+    txtRight: false,
+    filter: false,
   },
-  rodalUI: {
-    dialog: false,
-    selectDialog: false,
-    addDialog: false,
-    searchDialog: false,
+  sharedUI: {
+    selectTitle: '',
+    selectData: [],
+    select: false,
+    drawer: false,
+    add: false,
+    search: false,
+    gps: false,
+  },
+  rodalAddUI: {
     date: false,
-    drawer: false
   },
 }
