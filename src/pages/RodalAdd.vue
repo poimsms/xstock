@@ -1,44 +1,34 @@
 <template>
-  <div style="padding:10px">
-    <!-- <div style="margin-bottom:20px;display:flex;justify-content:space-between;align-items:center">
-      <div style="font-size:20px;font-weight:700;color:#444">Especies Forestales</div>
-      <div
-        v-ripple
-        style="background:#70A83B;border-radius:50%;width:35px;height:35px;display:flex;align-items:center;justify-content:center"
-      >
-        <v-icon style="color:white">mdi-plus</v-icon>
-      </div>
-    </div>-->
-    <div style="color:#555;margin-bottom:10px;font-size:20px;font-weight:700">Predio y Rodal</div>
-    <div style="display:flex;align-items:center">
-      <div
-        @click="openSelect"
-        style="margin-right:10px;border-radius:4px;width:80%;background:whitesmoke;padding:10px;display:flex;align-items:center;justify-content:space-between"
-      >
-        <div style="color:#555">ID de rodal</div>
-        <v-icon style="color:#555">mdi-menu-down</v-icon>
+  <div class="rodal-add__container">
+    <div class="rodal-add__title">Predio y Rodal</div>
+    <div class="rodal-add__select">
+      <div @click="openSelect" class="rodal-add__select_box">
+        <div class="rodal-add__select_text">ID de rodal</div>
+        <v-icon class="rodal-add__select_icon">mdi-menu-down</v-icon>
       </div>
       <v-btn icon @click="openAdd('rodal')">
-        <v-icon style="font-size:30px;color:#bbb">mdi-plus-circle</v-icon>
+        <v-icon class="rodal-add__plus-icon">mdi-plus-circle</v-icon>
       </v-btn>
     </div>
 
-    <div style="margin-top:10px;display:flex;align-items:center">
-      <div
-        @click="openSelect"
-        style="margin-right:10px;border-radius:4px;width:80%;background:whitesmoke;padding:10px;display:flex;align-items:center;justify-content:space-between"
-      >
-        <div style="color:#555">ID de parcela</div>
-        <v-icon style="color:#555">mdi-menu-down</v-icon>
+    <div class="rodal-add__select-10">
+      <div @click="openSelect" class="rodal-add__select_box">
+        <div class="rodal-add__select_text">ID de parcela</div>
+        <v-icon class="rodal-add__select_icon">mdi-menu-down</v-icon>
       </div>
       <v-btn icon @click="openAdd('rodal')">
-        <v-icon style="font-size:30px;color:#bbb">mdi-plus-circle</v-icon>
+        <v-icon class="rodal-add__plus-icon">mdi-plus-circle</v-icon>
       </v-btn>
     </div>
 
-    <div style="color:#555;margin-top:10px;margin-bottom:10px;padding:10px 0">Ubicación</div>
+    <div class="rodal-add__subtitle">Ubicación</div>
 
-    <v-text-field color="#70A83B" type="number" label="Latitud" prepend-icon="mdi-map-marker"></v-text-field>
+    <v-text-field
+      color="#70A83B"
+      type="number"
+      label="Latitud"
+      prepend-icon="mdi-map-marker"
+    ></v-text-field>
 
     <v-text-field
       type="number"
@@ -48,21 +38,21 @@
       prepend-icon="mdi-map-marker"
     ></v-text-field>
 
-    <div style="color:#555;margin-top:10px;margin-bottom:10px;padding:10px 0">General</div>
+    <div class="rodal-add__subtitle">General</div>
 
-    <div
-      v-ripple
-      @click="openDatePicker"
-      style="border-bottom:1px solid #eee;padding: 15px 5px;width:100%;display:flex;align-items:center;justify-content:space-between"
-    >
-      <div style="display:flex;align-items:center">
+    <div v-ripple @click="openDatePicker" class="rodal-add__drop-box">
+      <div class="rodal-add__drop-box_flex">
         <v-icon>mdi-calendar</v-icon>
-        <div id="showOnIphone" style="color:#888;margin-left:10px">
+        <div
+          id="showOnIphone"
+          class="rodal-add__drop-box_left-text"
+          style="color:#888;margin-left:10px"
+        >
           <span class="showOnIphone">Fecha</span>
           <span class="showOnAndroid">Fecha de evaluación</span>
         </div>
       </div>
-      <div style="display:flex">
+      <div class="rodal-add__drop-box_flex">
         <div>16/6/2020</div>
         <v-icon style="color:#888">mdi-chevron-right</v-icon>
       </div>
@@ -80,19 +70,16 @@
     <div
       v-ripple
       @click="openSearch('rodal-especies')"
-      style="margin-top:-20px;border-bottom:1px solid #eee;padding: 15px 5px;width:100%;display:flex;align-items:center;justify-content:space-between"
+      class="rodal-add__drop-box"
     >
-      <div style="display:flex;align-items:center">
+      <div class="rodal-add__drop-box_flex">
         <v-icon>mdi-tree</v-icon>
-        <div style="color:#888;margin-left:10px">Especie principal</div>
+        <div class="rodal-add__drop-box_left-text">Especie principal</div>
       </div>
-      <div style="display:flex">
+      <div class="rodal-add__drop-box_flex">
+        <div>16/6/2020</div>
         <v-icon style="color:#888">mdi-chevron-right</v-icon>
       </div>
-    </div>
-
-    <div v-if="normalButton" style="display:flex;justify-content:center">
-      <v-btn style="background:#70A83B;color:white;margin-top:30px" outlined>Agregar</v-btn>
     </div>
 
     <UISelect />
@@ -100,61 +87,30 @@
     <UISearch />
     <UIGPS />
 
-    <div
-      v-if="footerButton"
-      @click="openPage('rodal-resultados')"
-      style="position:fixed;bottom:0;left:0;width:100%;padding:15px;background:white;box-shadow: 0 -5px 5px -5px #999"
-    >
-      <v-btn depressed block style="margin-top:0px">Agregar</v-btn>
+    <div @click="openPage('rodal-resultados')" class="rodal-add__footer-btn">
+      <v-btn depressed block>Agregar</v-btn>
     </div>
 
-    <div style="width:100%;height:100px"></div>
-
-    <v-btn v-if="fabButton" fab style="position:fixed;bottom:20px;right:15px;background:whitesmoke">
-      <v-icon style="color:#666">mdi-check-bold</v-icon>
-    </v-btn>
+    <div class="rodal-add__footer-spacer"></div>
 
     <v-bottom-sheet v-model="rodalAddUI.date">
       <v-sheet class="text-center" height="270px">
         <v-date-picker v-model="myDate" no-title></v-date-picker>
       </v-sheet>
     </v-bottom-sheet>
-
-    <div
-      v-if="false"
-      style="position:fixed;bottom:0;left:0;width:100%;background:white;padding:15px"
-    >
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div
-          style="background:#70A83B;border-radius:50%;width:35px;height:35px;display:flex;align-items:center;justify-content:center"
-        >
-          <v-icon style="color:white">mdi-map-marker</v-icon>
-        </div>
-        <div style="margin-left:20px;margin-right:10px">
-          <div style="font-weight:500">Ubicación GPS</div>
-          <div style="font-size:14px">Necesitamos tener acceso a tu Ubicación</div>
-        </div>
-        <v-icon style="color:#666;margin-bottom:10px">mdi-close</v-icon>
-      </div>
-      <div style="margin-top:10px;display:flex;justify-content:flex-end">
-        <div
-          style="background:blue;font-size:13px;color:white;padding:5px 15px;border-radius:5px"
-        >PERMITIR</div>
-      </div>
-    </div>
   </div>
 </template>
 
 
 <script>
-import UISearch from "@/components/UISearch";
-import UISelect from "@/components/UISelect";
-import UIAdd from "@/components/UIAdd";
-import UIGPS from "@/components/UIGPS";
+import UISearch from '@/components/UISearch';
+import UISelect from '@/components/UISelect';
+import UIAdd from '@/components/UIAdd';
+import UIGPS from '@/components/UIGPS';
 
-import router from "@/router";
+import router from '@/router';
 
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex';
 
 export default {
   data: () => ({
@@ -163,7 +119,7 @@ export default {
     fabButton: false,
     tabs: null,
     myDate: null,
-    options: ["Castaños", "Manzanos", "Arrayán"]
+    options: ['Castaños', 'Manzanos', 'Arrayán']
   }),
   methods: {
     withAnimation(payload) {
@@ -181,7 +137,7 @@ export default {
     openSelect() {
       this.withAnimation({
         select: true,
-        selectTitle: "Seleccinar rodal",
+        selectTitle: 'Seleccinar rodal',
         selectData: this.options
       });
     },
@@ -189,16 +145,16 @@ export default {
       setTimeout(() => router.push(page), 200);
     },
     ...mapActions([
-      "updateHeaderUI",
-      "updateRodalAddUI",
-      "updateSharedUI",
-      "openSelectUI"
+      'updateHeaderUI',
+      'updateRodalAddUI',
+      'updateSharedUI',
+      'openSelectUI'
     ])
   },
   mounted() {
     this.withAnimation({ gps: true });
     this.updateHeaderUI({
-      title: "Ingreso de Rodal",
+      title: 'Ingreso de Rodal',
       back: true,
       blankSpace: true,
       txtRight: false,
@@ -206,7 +162,7 @@ export default {
     });
   },
   computed: {
-    ...mapState(["rodalAddUI", "sharedUI"])
+    ...mapState(['rodalAddUI', 'sharedUI'])
   },
   components: {
     UISelect,
@@ -218,6 +174,79 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.rodal-add__container
+  padding: 10px
+
+.rodal-add__title
+  color: #555
+  margin-bottom: 10px
+  font-size: 20px
+  font-weight: 700
+
+.rodal-add__select
+  display: flex
+  align-items: center
+
+.rodal-add__select_box
+  margin-right: 10px
+  border-radius: 4px
+  width: 80%
+  background: whitesmoke
+  padding: 10px
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.rodal-add__select_text
+  color: #555
+
+.rodal-add__select_icon
+  color: #555 !important
+
+.rodal-add__plus-icon
+  font-size: 30px !important
+  color: #bbb !important
+
+.rodal-add__select-10
+  margin-top: 10px
+  display: flex
+  align-items: center
+
+.rodal-add__subtitle
+  color: #555
+  margin-top: 10px
+  margin-bottom: 10px
+  padding: 10px 0
+
+.rodal-add__drop-box
+  border-bottom: 1px solid #eee
+  padding: 15px 5px
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.rodal-add__drop-box_flex
+  display: flex
+  align-items: center
+
+.rodal-add__drop-box_left-text
+  color: #888
+  margin-left: 10px
+
+.rodal-add__footer-btn
+  position: fixed
+  bottom: 0
+  left: 0
+  width: 100%
+  padding: 15px
+  background: white
+  box-shadow: 0 -5px 5px -5px #999
+
+.rodal-add__footer-spacer
+  width: 100%
+  height: 100px
+
 .showOnIphone
   display: none
 

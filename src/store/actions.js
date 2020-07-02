@@ -2,6 +2,9 @@ export default {
   updateHeaderUI: ({ commit }, payload) => {
     commit('UPDATE_HEADER_UI', payload)
   },
+  updateHeaderBtn: ({ commit }, payload) => {
+    commit('UPDATE_HEADER_BTN', payload)
+  },
   updateSharedUI: ({ commit }, payload) => {
     commit('UPDATE_SHARED_UI', payload)
   },

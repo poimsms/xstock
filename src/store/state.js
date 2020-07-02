@@ -7,6 +7,12 @@ export default {
     txtRight: false,
     filter: false,
   },
+  headerBtn: {
+    text: '',
+    type: '',
+    icon: '',
+    action: '',
+  },
   sharedUI: {
     selectTitle: '',
     selectData: [],

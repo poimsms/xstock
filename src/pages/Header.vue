@@ -1,58 +1,57 @@
 <template>
   <div class="containerr">
-    <!-- <div v-if="UI.route === 'inicio'" style="position:fixed;top:0;left:0;width:100%;background:#70A83B;display:flex;align-items:center;justify-content:space-between;padding:10px 15px 10px 15px">
-    <v-app-bar-nav-icon @click="openDrawer" style="color:white"></v-app-bar-nav-icon>
-    <div style="color:white;font-weight:400;font-size:20px">XStock</div>
-    <div style="height:10px;width:30px"></div>
-    </div>-->
-
-    <div
-      style="z-index:1;background:#70A83B;border-bottom:1px solid #e2e2e2;position:fixed;top:0;left:0;width:100%;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 15px"
-    >
+    <div class="header__container">
       <div
         v-if="headerUI.back"
         @click="goBack"
         v-ripple
-        style="padding-right:5px;border-radius:3px;color:white;font-weight:400;font-size:18px;display:flex;align-items:center"
+        class="header__back-btn"
       >
-        <v-icon style="color:white;font-size:30px !important;margin-right:-5px">mdi-chevron-left</v-icon>Atrás
+        <v-icon class="header__chevron-icon">mdi-chevron-left</v-icon>Atrás
       </div>
-      <v-app-bar-nav-icon v-if="!headerUI.back" @click="openDrawer" style="color:white"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        v-if="!headerUI.back"
+        @click="openDrawer"
+        class="header__btn-icon"
+      ></v-app-bar-nav-icon>
+      <div class="header__title">
+        <span>{{ headerUI.title }}</span>
+      </div>
+
+      <v-btn
+        v-if="headerBtn.type === 'BTN_ICON'"
+        @click="onButtonRight(headerBtn.action)"
+        icon
+      >
+        <v-icon class="header__btn-icon"> {{ headerBtn.icon }} </v-icon>
+      </v-btn>
       <div
-        style="color:white;font-weight::500;font-weight:400;font-size:18.5px;overflow:hidden;text-align:center"
+        v-if="headerBtn.type === 'BTN_TEXT_AND_ICON'"
+        class="header__btn_box"
       >
-        <span class="showOnIphone">{{headerUI.title}}</span>
-        <!-- <span v-if="!shortTitle" class="showOnIphone">{{headerUI.longTitle}}</span> -->
-        <span class="showOnAndroid">{{headerUI.title}}</span>
+        <v-btn @click="openPage('rodal-preguntas')" icon>
+          <v-icon class="header__btn-icon"> {{ headerBtn.icon }} </v-icon>
+        </v-btn>
+        <div class="header__btn-text">
+          {{ headerBtn.text }}
+        </div>
       </div>
-       <div v-if="headerUI.txtRight" @click="openAlert()" v-ripple style="padding:0 5px;border-radius:3px;color:white;font-weight:400;font-size:17px;">
-      Listo
-    </div>
-     <v-btn v-if="headerUI.btnRight" @click="openPage('rodal-preguntas')" icon>
-      <v-icon style="color:white">mdi-email-send</v-icon>
-      </v-btn>
-      <div v-if="headerUI.filter" style="display:flex;align-items:center">
-       <v-btn @click="openPage('rodal-preguntas')" icon>
-      <v-icon style="color:white">mdi-filter</v-icon>
-      </v-btn>
-      <div style="color:white;margin-left:0px">
-        Filtro
+      <div
+        v-if="headerBtn.type === 'BTN_TEXT'"
+        @click="openAlert()"
+        v-ripple
+        class="header__btn-text"
+      >
+        {{ headerBtn.text }}
       </div>
-      </div>
-      <!-- <div v-if="saveButton" v-ripple style="padding:0 5px;border-radius:3px;color:white;font-weight:400;font-size:17px;">
-      Agregar
-    </div> -->
-    <!-- <v-btn v-if="saveIcon" icon>
-      <v-icon style="color:white">mdi-check-bold</v-icon>
-      </v-btn> -->
-      <div v-if="headerUI.blankSpace" style="height:10px;width:50px"></div>
+      <div v-if="headerUI.blankSpace" class="header__blank-space"></div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import router from "@/router";
+import { mapState, mapActions } from 'vuex';
+import router from '@/router';
 
 export default {
   data: () => ({
@@ -62,7 +61,7 @@ export default {
     blankSpace: true
   }),
   computed: {
-    ...mapState(["headerUI"])
+    ...mapState(['headerUI', 'headerBtn'])
   },
   methods: {
     openDrawer() {
@@ -75,9 +74,9 @@ export default {
       setTimeout(() => router.back(), 100);
     },
     openPage(page) {
-      setTimeout(() => router.push(page), 100)
+      setTimeout(() => router.push(page), 100);
     },
-    ...mapActions(["updateSharedUI", "updateHeaderUI"])
+    ...mapActions(['updateSharedUI', 'updateHeaderUI'])
   }
 };
 </script>
@@ -90,23 +89,63 @@ export default {
   -o-user-select: none
   user-select: none
 
-.showOnIphone
-  display: none
+.header__container
+  z-index: 1
+  background: #70A83B
+  border-bottom: 1px solid #e2e2e2
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: space-between
+  height: 60px
+  padding: 0 15px
 
-.showOnAndroid
-  display: none
+.header__back-btn
+  padding-right: 5px
+  border-radius: 3px
+  color: white
+  font-weight: 400
+  font-size: 18px
+  display: flex
+  align-items: center
 
-@media (min-width: 370px) and (max-width: 500px)
-  .showOnIphone
-    display: none
-  .showOnAndroid
-    display: inline
+.header__chevron-icon
+  color: white
+  font-size: 30px !important
+  margin-right: -5px
 
-@media (min-width: 0px) and (max-width: 360px)
-  .showOnIphone
-    display: inline
-  .showOnAndroid
-    display: none
+.header__title
+  color: white
+  font-weight: 500
+  font-weight: 400
+  font-size: 18.5px
+  overflow: hidden
+  text-align: center
+
+.header__btn-icon
+  color: white !important
+
+.header__btn_box
+  display: flex
+  align-items: center
+
+.header__btn-text
+  color: white
+  margin-left: 0px
+
+.header__btn-text
+  padding: 0 5px
+  border-radius: 3px
+  color: white
+  font-weight: 400
+  font-size: 17px
+
+.header__blank-space
+  height: 10px
+  width: 50px
 
 </style>
 

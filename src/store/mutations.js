@@ -5,6 +5,12 @@ export default {
       ...payload
     }
   },
+  UPDATE_HEADER_BTN: (state, payload) => {
+    state.headerBtn = {
+      ...state.headerBtn,
+      ...payload
+    }
+  },
   UPDATE_SHARED_UI: (state, payload) => {
     state.sharedUI = {
       ...state.sharedUI,

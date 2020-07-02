@@ -8,8 +8,6 @@ import Login from '@/pages/Login.vue'
 import RodalAdd from '@/pages/RodalAdd.vue'
 import RodalResults from '@/pages/RodalResults.vue'
 import Quiz from '@/pages/Quiz.vue'
-
-import RodalSpecies from '@/pages/RodalSpecies.vue'
 import RodalInventory from '@/pages/RodalInventory.vue'
 import Catalog from '@/pages/Catalog.vue'
 
@@ -19,7 +17,7 @@ const routes = [
     redirect: '/'
   },
   {
-    path: '/', name: 'home',
+    path: '/', name: 'home-stock',
     component: Home
   },
   {
@@ -33,10 +31,6 @@ const routes = [
   {
     path: '/rodal-ingreso', name: 'rodal-ingreso',
     component: RodalAdd
-  },
-  {
-    path: '/rodal-especies', name: 'rodal-especies',
-    component: RodalSpecies
   },
   {
     path: '/rodal-resultados', name: 'rodal-resultados',
