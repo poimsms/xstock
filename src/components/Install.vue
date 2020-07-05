@@ -9,7 +9,7 @@
           Encuentra lo que necesitas más rápido
         </div>
       </div>
-      <div class="install__btn" v-ripple>Agregar</div>
+      <div class="install__btn" v-ripple>Hmm2</div>
     </div>
   </div>
 </template>
